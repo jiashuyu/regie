@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS course_loads;
 DROP TABLE IF EXISTS enrollments;
 DROP TABLE IF EXISTS course_prerequisites;
+DROP TABLE IF EXISTS labs;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS authorities;
@@ -38,6 +39,13 @@ CREATE TABLE courses (
     name            TEXT NOT NULL,
     max_enrollment  INT NOT NULL,
     FOREIGN KEY (department_id) REFERENCES departments (id)
+);
+
+CREATE TABLE labs (
+    id SERIAL PRIMARY KEY,
+    course_id INT NOT NULL,
+    lab_number TEXT NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses (id)
 );
 
 CREATE TABLE course_prerequisites (
