@@ -27,7 +27,8 @@ dev_runner_logs.png under the screenshot folder).
 ## Test in Postman
 
 Furthermore, this is a SpringBoot Application with url mappings, so writing a huge command-line main function does not 
-actually fit to it. In industries, we usually use Postman to test the urls and this is what I did here. Please see
-the screenshot evidence for the Postman tests. After the `RegieApplication` is running, please download and open Postman,
-click `import` at the upper-left next to `My Workspace` and upload the `regie.postman_collection.json` file under the 
-`postman_tests` folder, and you'll see the tests I wrote and use them to test my REGIE system.
+actually fit to it, because as a course registration system, we really need to make sure that the URLs are working properly.
+In industries, we usually use Postman to test the urls and this is what I did here. Please see the screenshot evidence 
+for the Postman tests. After the `RegieApplication` is running, please download and open Postman, click `import` at the 
+upper-left next to `My Workspace` and upload the `regie.postman_collection.json` file under the `postman_tests` folder, 
+and you'll see the tests I wrote and use them to test my REGIE system.
