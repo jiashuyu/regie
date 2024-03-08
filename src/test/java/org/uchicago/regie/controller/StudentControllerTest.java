@@ -86,8 +86,8 @@ class StudentControllerTest {
     @Test
     void enrollInCourse() throws Exception {
         long studentId = 1L;
-        EnrollmentEntity enrollment = new EnrollmentEntity(null, studentId, 2L, "registered");
-        doNothing().when(enrollmentService).registerStudentForCourse(studentId, enrollment.courseId(), enrollment.status());
+        EnrollmentEntity enrollment = new EnrollmentEntity(null, studentId, 2L, "registered", "Spring 2024");
+        doNothing().when(enrollmentService).registerStudentForCourse(studentId, enrollment.courseId(), enrollment.status(), enrollment.quarter());
 
         mockMvc.perform(post("/students/{studentId}/enrollments", studentId)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ class StudentControllerTest {
     @Test
     void getEnrollmentsForStudent() throws Exception {
         long studentId = 1L;
-        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(1L, studentId, 2L, "registered"));
+        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(1L, studentId, 2L, "registered", "Spring 2024"));
         when(enrollmentService.getAllEnrollmentsByStudentId(studentId)).thenReturn(enrollments);
 
         mockMvc.perform(get("/students/{studentId}/enrollments", studentId))

@@ -22,7 +22,7 @@ public class EnrollmentController {
 
     @PostMapping("/register")
     public ResponseEntity<Void> registerForCourse(@RequestBody EnrollmentRequest request) {
-        enrollmentService.registerStudentForCourse(request.getStudentId(), request.getCourseId(), "registered");
+        enrollmentService.registerStudentForCourse(request.getStudentId(), request.getCourseId(), "registered", request.getQuarter());
         return ResponseEntity.ok().build();
     }
 

@@ -52,7 +52,7 @@ public class StudentController {
 
     @PostMapping("/{studentId}/enrollments")
     public ResponseEntity<Void> enrollInCourse(@PathVariable long studentId, @RequestBody EnrollmentEntity enrollment) {
-        enrollmentService.registerStudentForCourse(studentId, enrollment.courseId(), enrollment.status());
+        enrollmentService.registerStudentForCourse(studentId, enrollment.courseId(), enrollment.status(), enrollment.quarter());
         return ResponseEntity.ok().build();
     }
 

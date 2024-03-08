@@ -40,4 +40,7 @@ public interface EnrollmentRepository extends CrudRepository<EnrollmentEntity, L
     @Query("DELETE FROM enrollments WHERE student_id = :studentId")
     void deleteByStudentId(@Param("studentId") Long studentId);
 
+    @Query("SELECT COUNT(*) FROM enrollments WHERE student_id = :studentId AND status = 'registered' AND quarter = :quarter")
+    int countEnrollmentsForStudentByQuarter(@Param("studentId") Long studentId, @Param("quarter") String quarter);
+
 }

@@ -22,4 +22,11 @@ public interface CourseRepository extends CrudRepository<CourseEntity, Long> {
     @Query("SELECT c FROM courses c LEFT JOIN course_prerequisites p ON c.id = p.course_id WHERE c.id = :courseId")
     List<CourseEntity> findCourseWithPrerequisites(@Param("courseId") Long courseId);
 
+    @Query("SELECT COUNT(*) FROM enrollments WHERE course_id = :courseId AND status = 'registered'")
+    int countEnrollmentsByCourseId(@Param("courseId") Long courseId);
+
+    @Query("SELECT max_enrollment FROM courses WHERE id = :courseId")
+    int findMaxEnrollmentByCourseId(@Param("courseId") Long courseId);
+
+
 }

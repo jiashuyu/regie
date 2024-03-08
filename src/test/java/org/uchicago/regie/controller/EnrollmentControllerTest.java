@@ -41,19 +41,19 @@ class EnrollmentControllerTest {
 
     @Test
     void registerForCourse() throws Exception {
-        EnrollmentRequest request = new EnrollmentRequest(1L, 2L, "registered");
+        EnrollmentRequest request = new EnrollmentRequest(1L, 2L, "registered", "Spring 2024");
 
         mockMvc.perform(post("/enrollments/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk());
 
-        verify(enrollmentService, times(1)).registerStudentForCourse(1L, 2L, "registered");
+        verify(enrollmentService, times(1)).registerStudentForCourse(1L, 2L, "registered", "Spring 2024");
     }
 
     @Test
     void updateEnrollmentStatus() throws Exception {
-        EnrollmentRequest request = new EnrollmentRequest(1L, 2L, "completed");
+        EnrollmentRequest request = new EnrollmentRequest(1L, 2L, "completed", "Spring 2024");
 
         mockMvc.perform(put("/enrollments/updateStatus")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ class EnrollmentControllerTest {
 
     @Test
     void getEnrollmentsByStudent() throws Exception {
-        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(1L, 1L, 2L, "registered"));
+        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(1L, 1L, 2L, "registered", "Spring 2024"));
         when(enrollmentService.getAllEnrollmentsByStudentId(1L)).thenReturn(enrollments);
 
         mockMvc.perform(get("/enrollments/student/{studentId}", 1L))
@@ -77,7 +77,7 @@ class EnrollmentControllerTest {
 
     @Test
     void getEnrollmentsByCourse() throws Exception {
-        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(1L, 1L, 2L, "registered"));
+        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(1L, 1L, 2L, "registered", "Spring 2024"));
         when(enrollmentService.getAllEnrollmentsByCourseId(2L)).thenReturn(enrollments);
 
         mockMvc.perform(get("/enrollments/course/{courseId}", 2L))
@@ -89,7 +89,7 @@ class EnrollmentControllerTest {
 
     @Test
     void dropCourse() throws Exception {
-        EnrollmentRequest request = new EnrollmentRequest(1L, 2L, "registered");
+        EnrollmentRequest request = new EnrollmentRequest(1L, 2L, "registered", "Spring 2024");
 
         mockMvc.perform(delete("/enrollments/drop")
                         .contentType(MediaType.APPLICATION_JSON)

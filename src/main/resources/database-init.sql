@@ -62,6 +62,7 @@ CREATE TABLE enrollments (
     student_id  INT NOT NULL,
     course_id   INT NOT NULL,
     status      TEXT NOT NULL, -- ('registered', 'dropped', 'pending_approval')
+    quarter     TEXT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES students(id),
     FOREIGN KEY (course_id) REFERENCES courses(id),
     UNIQUE(student_id, course_id)
@@ -95,9 +96,9 @@ INSERT INTO students (email, enabled, password, first_name, last_name)
 VALUES ('jiashuyu@uchicago.edu', true, '123456', 'Shuyu', 'Jia'),
        ('brandon@uchicago.edu', true, '123456', 'Brandon', 'Lee');
 
-INSERT INTO enrollments (student_id, course_id, status)
-VALUES (1, 1, 'registered'),
-       (2, 1, 'pending_approval');
+INSERT INTO enrollments (student_id, course_id, status, quarter)
+VALUES (1, 1, 'registered', 'Spring 2024'),
+       (2, 1, 'pending_approval', 'Winter 2024');
 
 INSERT INTO notifications (student_id, type, message, sent)
 VALUES (1, 'course_added', 'You have been enrolled in a course.', false);

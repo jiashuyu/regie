@@ -33,7 +33,7 @@ public class DevRunner implements ApplicationRunner {
 
         // Enroll the student in a course
         long courseId = 1L; // Assuming a course with ID 1 exists
-        enrollmentService.registerStudentForCourse(student.id(), courseId, "registered");
+        enrollmentService.registerStudentForCourse(student.id(), courseId, "registered", "Spring 2024");
         logger.info("Enrolled student in course with ID: " + courseId);
 
         // Update enrollment status

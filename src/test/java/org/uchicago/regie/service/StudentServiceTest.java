@@ -60,9 +60,10 @@ class StudentServiceTest {
     void registerStudentForCourse() {
         long studentId = 1L, courseId = 1L;
         String status = "registered";
-        EnrollmentEntity enrollment = new EnrollmentEntity(null, studentId, courseId, status);
+        String quarter = "Spring 2024";
+        EnrollmentEntity enrollment = new EnrollmentEntity(null, studentId, courseId, status, quarter);
 
-        studentService.registerStudentForCourse(studentId, courseId, status);
+        studentService.registerStudentForCourse(studentId, courseId, status, quarter);
 
         verify(enrollmentRepository, times(1)).save(enrollment);
     }
@@ -89,7 +90,7 @@ class StudentServiceTest {
     @Test
     void getStudentEnrollments() {
         long studentId = 1L;
-        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(null, studentId, 2L, "registered"));
+        List<EnrollmentEntity> enrollments = Arrays.asList(new EnrollmentEntity(null, studentId, 2L, "registered", "Spring 2024"));
         when(enrollmentRepository.findByStudentId(studentId)).thenReturn(enrollments);
 
         List<EnrollmentEntity> foundEnrollments = studentService.getStudentEnrollments(studentId);

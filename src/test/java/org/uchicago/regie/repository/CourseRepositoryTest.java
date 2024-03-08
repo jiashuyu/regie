@@ -48,6 +48,21 @@ public class CourseRepositoryTest {
         assertFalse(courses.isEmpty(), "Should find courses containing name ignoring case");
     }
 
+    @Test
+    public void whenCountEnrollmentsByCourseId_thenReturnCorrectCount() {
+        Long courseId = 1L;
+        int count = courseRepository.countEnrollmentsByCourseId(courseId);
+
+        assertEquals(1, count, "Should count the correct number of enrollments for the specified course.");
+    }
+
+    @Test
+    public void whenFindMaxEnrollmentByCourseId_thenReturnMaxEnrollment() {
+        Long courseId = 1L;
+        int maxEnrollment = courseRepository.findMaxEnrollmentByCourseId(courseId);
+
+        assertEquals(40, maxEnrollment, "Should return the correct max enrollment for the specified course.");
+    }
+
+
 }
-
-

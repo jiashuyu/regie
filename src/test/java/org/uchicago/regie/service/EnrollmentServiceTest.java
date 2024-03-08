@@ -5,14 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Captor;
-import org.mockito.ArgumentCaptor;
 import org.uchicago.regie.model.EnrollmentEntity;
 import org.uchicago.regie.model.LabEntity;
+import org.uchicago.regie.repository.CourseRepository;
 import org.uchicago.regie.repository.EnrollmentRepository;
 import org.uchicago.regie.repository.LabRepository;
+import org.uchicago.regie.repository.PrerequisiteRepository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +23,21 @@ import static org.mockito.Mockito.*;
 
 class EnrollmentServiceTest {
 
+
     @Mock
     private EnrollmentRepository enrollmentRepository;
 
     @Mock
+    private CourseRepository courseRepository;
+
+    @Mock
     private LabRepository labRepository;
+
+    @Mock
+    private PrerequisiteRepository prerequisiteRepository;
 
     @InjectMocks
     private EnrollmentService enrollmentService;
-
-    @Captor
-    private ArgumentCaptor<EnrollmentEntity> enrollmentCaptor;
 
     @BeforeEach
     void setUp() {
@@ -54,19 +59,18 @@ class EnrollmentServiceTest {
     void registerStudentForCourse_NewEnrollment() {
         long studentId = 1L, courseId = 1L;
         String status = "registered";
-        Optional<LabEntity> optionalLabEntity = Optional.of(new LabEntity(2L, courseId, "Lab 101"));
+        String quarter = "Spring 2024";
 
-        when(enrollmentRepository.getEnrollmentStatus(studentId, courseId)).thenReturn(null);
-        when(labRepository.findByCourseId(courseId)).thenReturn(optionalLabEntity);
+        when(courseRepository.countEnrollmentsByCourseId(courseId)).thenReturn(0); // No existing enrollments
+        when(courseRepository.findMaxEnrollmentByCourseId(courseId)).thenReturn(30); // Max enrollment not reached
+        when(prerequisiteRepository.findPrerequisitesByCourseId(courseId)).thenReturn(Collections.emptyList()); // No prerequisites
+        when(enrollmentRepository.countEnrollmentsForStudentByQuarter(studentId, quarter)).thenReturn(0); // Student not overloaded
+        when(enrollmentRepository.getEnrollmentStatus(studentId, courseId)).thenReturn(null); // Not enrolled yet
+        when(labRepository.findByCourseId(courseId)).thenReturn(Optional.of(new LabEntity(2L, courseId, "Lab 101"))); // Lab exists
 
-        enrollmentService.registerStudentForCourse(studentId, courseId, status);
+        enrollmentService.registerStudentForCourse(studentId, courseId, status, quarter);
 
-        // Verify the save method is called at least once without specifying the arguments
-        verify(enrollmentRepository, atLeastOnce()).save(any(EnrollmentEntity.class));
-
-        // If you specifically expect the save method to be called twice (once for the course enrollment, once for the lab enrollment),
-        // then use times(2) instead of atLeastOnce().
-        verify(enrollmentRepository, times(2)).save(any(EnrollmentEntity.class));
+        verify(enrollmentRepository, times(2)).save(any(EnrollmentEntity.class)); // For both the course and the lab
     }
 
     @Test
@@ -82,7 +86,7 @@ class EnrollmentServiceTest {
     @Test
     void getAllEnrollmentsByStudentId() {
         long studentId = 1L;
-        List<EnrollmentEntity> expected = Arrays.asList(new EnrollmentEntity(null, studentId, 2L, "registered"));
+        List<EnrollmentEntity> expected = Arrays.asList(new EnrollmentEntity(null, studentId, 2L, "registered", "Spring 2024"));
         when(enrollmentRepository.findByStudentId(studentId)).thenReturn(expected);
 
         List<EnrollmentEntity> enrollments = enrollmentService.getAllEnrollmentsByStudentId(studentId);
@@ -93,7 +97,7 @@ class EnrollmentServiceTest {
     @Test
     void getAllEnrollmentsByCourseId() {
         long courseId = 1L;
-        List<EnrollmentEntity> expected = Arrays.asList(new EnrollmentEntity(null, 1L, courseId, "registered"));
+        List<EnrollmentEntity> expected = Arrays.asList(new EnrollmentEntity(null, 1L, courseId, "registered", "Spring 2024"));
         when(enrollmentRepository.findByCourseId(courseId)).thenReturn(expected);
 
         List<EnrollmentEntity> enrollments = enrollmentService.getAllEnrollmentsByCourseId(courseId);
@@ -129,7 +133,7 @@ class EnrollmentServiceTest {
 
     @Test
     void findPendingApprovalEnrollments() {
-        List<EnrollmentEntity> expected = Arrays.asList(new EnrollmentEntity(null, 1L, 2L, "pending_approval"));
+        List<EnrollmentEntity> expected = Arrays.asList(new EnrollmentEntity(null, 1L, 2L, "pending_approval", "Spring 2024"));
         when(enrollmentRepository.findPendingApprovals()).thenReturn(expected);
 
         List<EnrollmentEntity> enrollments = enrollmentService.findPendingApprovalEnrollments();

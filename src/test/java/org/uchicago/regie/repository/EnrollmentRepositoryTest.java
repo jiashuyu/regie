@@ -89,4 +89,14 @@ public class EnrollmentRepositoryTest {
         List<EnrollmentEntity> enrollments = enrollmentRepository.findByStudentId(studentId);
         assertTrue(enrollments.isEmpty(), "All enrollments for the student should be deleted.");
     }
+
+    @Test
+    public void testCountEnrollmentsForStudentByQuarter() {
+        Long studentId = 1L;
+        String quarter = "Spring 2024";
+
+        int count = enrollmentRepository.countEnrollmentsForStudentByQuarter(studentId, quarter);
+        assertEquals(1, count, "Should count the correct number of enrollments for the student in the specified quarter.");
+    }
+
 }

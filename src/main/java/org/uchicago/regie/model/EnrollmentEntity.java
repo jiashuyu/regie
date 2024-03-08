@@ -9,6 +9,7 @@ public record EnrollmentEntity(
         @Id Long id,
         @Column("student_id") Long studentId,
         @Column("course_id") Long courseId,
-        String status // 'registered', 'dropped', 'pending_approval'
+        String status, // 'registered', 'dropped', 'pending_approval'
+        String quarter
 ) {
 }

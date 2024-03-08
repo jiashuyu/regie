@@ -29,8 +29,8 @@ public class StudentService {
     }
 
     @Transactional
-    public void registerStudentForCourse(long studentId, long courseId, String status) {
-        EnrollmentEntity enrollmentEntity = new EnrollmentEntity(null, studentId, courseId, status);
+    public void registerStudentForCourse(long studentId, long courseId, String status, String quarter) {
+        EnrollmentEntity enrollmentEntity = new EnrollmentEntity(null, studentId, courseId, status, quarter);
         enrollmentRepository.save(enrollmentEntity);
     }
 

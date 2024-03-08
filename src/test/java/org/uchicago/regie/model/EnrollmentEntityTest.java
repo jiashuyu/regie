@@ -13,8 +13,9 @@ public class EnrollmentEntityTest {
         Long studentId = 100L;
         Long courseId = 200L;
         String status = "registered";
+        String quarter = "Spring 2024";
 
-        EnrollmentEntity enrollment = new EnrollmentEntity(id, studentId, courseId, status);
+        EnrollmentEntity enrollment = new EnrollmentEntity(id, studentId, courseId, status, quarter);
 
         assertEquals(id, enrollment.id(), "The id should match the value provided to the constructor.");
         assertEquals(studentId, enrollment.studentId(), "The studentId should match the value provided to the constructor.");
@@ -24,9 +25,9 @@ public class EnrollmentEntityTest {
 
     @Test
     public void testEnrollmentStatusValidValues() {
-        EnrollmentEntity registered = new EnrollmentEntity(1L, 100L, 200L, "registered");
-        EnrollmentEntity dropped = new EnrollmentEntity(2L, 101L, 201L, "dropped");
-        EnrollmentEntity pendingApproval = new EnrollmentEntity(3L, 102L, 202L, "pending_approval");
+        EnrollmentEntity registered = new EnrollmentEntity(1L, 100L, 200L, "registered", "Spring 2024");
+        EnrollmentEntity dropped = new EnrollmentEntity(2L, 101L, 201L, "dropped", "Spring 2024");
+        EnrollmentEntity pendingApproval = new EnrollmentEntity(3L, 102L, 202L, "pending_approval", "Spring 2024");
 
         assertAll("status",
                 () -> assertEquals("registered", registered.status(), "Status should be 'registered'."),
