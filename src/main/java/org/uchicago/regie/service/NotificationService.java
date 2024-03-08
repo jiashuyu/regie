@@ -53,7 +53,6 @@ public class NotificationService {
         List<NotificationEntity> unsentNotifications = getUnsentNotifications();
         // Loop through each unsent notification and send it
         for (NotificationEntity notification : unsentNotifications) {
-            // sendNotification(notification);
             markNotificationAsSent(notification.id());
         }
     }

@@ -1,0 +1,21 @@
+Use Case: Register for Class
+ID: UC 01
+Pre-condition:
+    The student is enrolled in the university and has an account in the system.
+Post-condition:
+    The student is registered for the class if the department chairperson does not cancel the class due to the class
+    having fewer than 5 students.
+Primary Flow of Events:
+    1. The student logs into the system using their university credentials.
+    2. The student browses and selects desired courses and corresponding labs, if applicable.
+    3. The system checks in real-time if the student meets all prerequisites for the selected courses.
+    4. The system verifies if adding the course exceeds the student's course limit per quarter.
+    5. If all checks pass, the student is registered for the course.
+    6. The system confirms successful registration to the student and send an email confirmation.
+Alternative Flow of Events:
+    A4. If the student attempts to exceed the course limit, the system marks the registration as pending and sends an
+    email for department chair approval, with a cc to the student's academic advisor and the student.
+    A5. For courses requiring instructor consent, the registration is marked as tentative until approval.
+Exceptional Flow of Events:
+    E3. If prerequisites are not met, the student is informed and the course is not added.
+    E5. If a course is full, the system will suggest an alternative section or time of the class.

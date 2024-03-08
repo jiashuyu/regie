@@ -25,13 +25,13 @@ public class LabRepositoryTest {
     private LabRepository labRepository;
 
     @Autowired
-    private CourseRepository courseRepository; // Assume this exists for setting up test data
+    private CourseRepository courseRepository;
 
     private CourseEntity testCourse;
 
     @BeforeEach
     void setUp() {
-        // Setup a test course to use with labs
+        // Set up a test course to use with labs
         testCourse = new CourseEntity(null, 1L, "CS101", "Introduction to Computer Science", 100);
         testCourse = courseRepository.save(testCourse);
     }
@@ -48,10 +48,8 @@ public class LabRepositoryTest {
 
     @Test
     public void testFindAllByDepartmentId() {
-        // Assuming you have a department ID set up in your test database
         List<LabEntity> labs = labRepository.findAllByDepartmentId(testCourse.departmentId());
         assertNotNull(labs, "Should not return null.");
-        // Depending on your test setup, you might want to check for specific labs here
     }
 
     @Test

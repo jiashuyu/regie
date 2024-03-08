@@ -29,4 +29,5 @@ public interface NotificationRepository extends CrudRepository<NotificationEntit
     @Transactional
     @Query("UPDATE notifications SET sent = TRUE WHERE id = :notificationId")
     void markAsSent(@Param("notificationId") Long notificationId);
+
 }

@@ -28,4 +28,5 @@ public class EnrollmentRequest {
     public String getQuarter() { return quarter; }
 
     public void setQuarter(String quarter) {this.quarter = quarter;}
+
 }

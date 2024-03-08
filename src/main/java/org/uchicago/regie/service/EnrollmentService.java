@@ -101,8 +101,6 @@ public class EnrollmentService {
 
         // Then, check if there is an associated lab and drop the student from the lab
         labRepository.findByCourseId(courseId).ifPresent(lab -> {
-            // Assuming the lab is treated as a separate course for enrollment purposes
-            // and that there's a method in EnrollmentRepository to directly delete an enrollment
             enrollmentRepository.deleteByStudentIdAndCourseId(studentId, lab.id());
         });
     }

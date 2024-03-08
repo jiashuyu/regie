@@ -118,16 +118,10 @@ class EnrollmentServiceTest {
     void dropStudentFromCourse_WithAssociatedLab() {
         long studentId = 1L, courseId = 1L, labId = 2L;
 
-        // Mock the scenario where a lab is associated with the course
         when(labRepository.findByCourseId(courseId)).thenReturn(Optional.of(new LabEntity(labId, courseId, "Lab 101")));
-
-        // Execute the method under test
         enrollmentService.dropStudentFromCourse(studentId, courseId);
 
-        // Verify the student's course enrollment status is updated to "dropped"
         verify(enrollmentRepository, times(1)).updateEnrollmentStatus(studentId, courseId, "dropped");
-
-        // Verify the student is dropped from the associated lab as well
         verify(enrollmentRepository, times(1)).deleteByStudentIdAndCourseId(studentId, labId);
     }
 

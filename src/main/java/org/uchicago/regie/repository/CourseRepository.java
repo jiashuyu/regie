@@ -28,5 +28,4 @@ public interface CourseRepository extends CrudRepository<CourseEntity, Long> {
     @Query("SELECT max_enrollment FROM courses WHERE id = :courseId")
     int findMaxEnrollmentByCourseId(@Param("courseId") Long courseId);
 
-
 }

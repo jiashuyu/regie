@@ -14,5 +14,13 @@ database service. Then run `RegieApplication`, which is the entrypoint of the Sp
 
 When you try to configure the data source in Intellij Idea, select PostgresSQL; the username is "postgres"; the password 
 is "secret"; the name of the database is "regie". See detailed settings in `application.yml` and database initialization 
-SQL script named `database-init.sql` under "/src/main/resource" folder. You can find my screenshots evidence in the 
-"Deliverable_database_setup" folder.
+SQL script named `database-init.sql` under "/src/main/resource" folder. You can find my screenshots evidence under the
+screenshots folder.
+
+## Testing the functions in REGIE system
+
+I wrote unit tests for every function in the system, including model layer, repository layer, service layer, and controller
+layer, with a total of 117 passed tests (see unit_test_results.png under screenshots folder). I also wrote a DevRunner
+class to test some primary features of this regie system with printed logs while running the `RegieApplication` (See 
+dev_runner_logs.png under the screenshot folder). Furthermore, you can also use Postman to test as long as you're sending 
+requests corresponding to the urls defined in each controller class.
